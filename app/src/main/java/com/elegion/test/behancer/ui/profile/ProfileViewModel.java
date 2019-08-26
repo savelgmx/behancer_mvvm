@@ -2,7 +2,9 @@ package com.elegion.test.behancer.ui.profile;
 
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
+import android.support.v4.widget.SwipeRefreshLayout;
 
+import com.elegion.test.behancer.R;
 import com.elegion.test.behancer.data.Storage;
 import com.elegion.test.behancer.utils.ApiUtils;
 
@@ -15,7 +17,8 @@ public class ProfileViewModel extends ViewModel {
     private Storage mStorage;
     private Disposable mDisposable;
     private ObservableBoolean mIsErrorVisible = new ObservableBoolean(false);
-
+    private SwipeRefreshLayout mSwipeRefreshLayout = view.FindViewById(R.id.profile_refresher);
+//TODO fix erroe with view
 
     public ProfileViewModel(Storage storage, String user){
         mStorage=storage;
@@ -32,8 +35,8 @@ public class ProfileViewModel extends ViewModel {
                                 mStorage.getUser(mUsername) :
                                 null)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(disposable -> mSwipeRefreshLayout.setRefreshState(true))
-                .doFinally(() -> mSwipeRefreshLayout.setRefreshState(false))
+                .doOnSubscribe(disposable -> mSwipeRefreshLayout.setRefreshing(true))
+                .doFinally(() -> mSwipeRefreshLayout.setRefreshing(false))
                 .subscribe(
                         response -> {
                             mIsErrorVisible.set(false);

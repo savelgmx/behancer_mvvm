@@ -23,6 +23,7 @@ import com.squareup.picasso.Picasso;
  * Created by Vladislav Falzan.
  */
 
+//TODO rewrite OnCreateView exactly like in ProjectsFragment
 public class ProfileFragment extends Fragment implements Refreshable {
 
     public static final String PROFILE_KEY = "PROFILE_KEY";
@@ -93,7 +94,7 @@ public class ProfileFragment extends Fragment implements Refreshable {
 
     @Override
     public void onRefreshData() {
-      //  getProfile();
+        ProfileViewModel.getProfile();
     }
 
     private void bind(User user) {
