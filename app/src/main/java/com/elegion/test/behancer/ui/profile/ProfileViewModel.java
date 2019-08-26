@@ -32,24 +32,16 @@ public class ProfileViewModel extends ViewModel {
                                 mStorage.getUser(mUsername) :
                                 null)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(disposable -> mRefreshOwner.setRefreshState(true))
-                .doFinally(() -> mRefreshOwner.setRefreshState(false))
+                .doOnSubscribe(disposable -> mSwipeRefreshLayout.setRefreshState(true))
+                .doFinally(() -> mSwipeRefreshLayout.setRefreshState(false))
                 .subscribe(
                         response -> {
                             mIsErrorVisible.set(false);
-
-
-//                            mErrorView.setVisibility(View.GONE);
-  //                          mProfileView.setVisibility(View.VISIBLE);
-    //                        bind(response.getUser());
-                        },
+                       },
                         throwable -> {
 
                             mIsErrorVisible.set(true);
-/*
-                            mErrorView.setVisibility(View.VISIBLE);
-                            mProfileView.setVisibility(View.GONE);
-*/
+
                         });
  /* */    }
 
