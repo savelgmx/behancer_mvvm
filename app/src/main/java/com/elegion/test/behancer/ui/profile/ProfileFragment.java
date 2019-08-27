@@ -16,15 +16,14 @@ import com.elegion.test.behancer.common.RefreshOwner;
 import com.elegion.test.behancer.common.Refreshable;
 import com.elegion.test.behancer.data.Storage;
 import com.elegion.test.behancer.data.model.user.User;
+import com.elegion.test.behancer.databinding.ProfileBinding;
 import com.elegion.test.behancer.utils.DateUtils;
 import com.squareup.picasso.Picasso;
 
 /**
  * Created by Vladislav Falzan.
  */
-
-//TODO rewrite OnCreateView exactly like in ProjectsFragment
-public class ProfileFragment extends Fragment implements Refreshable {
+public class ProfileFragment extends Fragment {
 
     public static final String PROFILE_KEY = "PROFILE_KEY";
 
@@ -61,10 +60,13 @@ public class ProfileFragment extends Fragment implements Refreshable {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fr_profile, container, false);
+        ProfileBinding binding = ProfileBinding.inflate(inflater,container,false);
+        binding.setPm(mProfileViewModel);
+        return binding.getRoot();
+
     }
 
-    @Override
+ /*   @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         mErrorView = view.findViewById(R.id.errorView);
         mProfileView = view.findViewById(R.id.view_profile);
@@ -109,13 +111,14 @@ public class ProfileFragment extends Fragment implements Refreshable {
 
     @Override
     public void onDetach() {
-/*
+*//*
         mStorage = null;
         mRefreshOwner = null;
         if (mDisposable != null) {
             mDisposable.dispose();
         }
-*/
+*//*
         super.onDetach();
     }
+*/
 }
