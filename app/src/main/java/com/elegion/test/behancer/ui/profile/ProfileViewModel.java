@@ -3,10 +3,12 @@ package com.elegion.test.behancer.ui.profile;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
+import android.databinding.ObservableField;
 import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.elegion.test.behancer.R;
 import com.elegion.test.behancer.data.Storage;
+import com.elegion.test.behancer.data.model.user.User;
 import com.elegion.test.behancer.utils.ApiUtils;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -20,18 +22,21 @@ public class ProfileViewModel extends ViewModel {
     private MutableLiveData<Boolean> mIsLoading = new MutableLiveData<>();
     private MutableLiveData<Boolean> mIsErrorVisible = new MutableLiveData<>();
 
+    private ObservableField<User> mProfile = new ObservableField<>();
+
   //  private ObservableBoolean mIsErrorVisible = new ObservableBoolean(false);
     //private SwipeRefreshLayout mSwipeRefreshLayout = view.FindViewById(R.id.profile_refresher);
-    private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = this::getProfile;
+    private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = this::loadProfile;
 
     public ProfileViewModel(Storage storage, String user){
         mStorage=storage;
         mUsername = user;
-        getProfile();
+       // mUser = mStorage.getUserWithImageLiveByName(mUsername);
+        loadProfile();
     }
 
 
-    private void getProfile() {
+    public void loadProfile() {
         mDisposable = ApiUtils.getApiService().getUserInfo(mUsername)
                 .subscribeOn(Schedulers.io())
                 .doOnSuccess(response -> mStorage.insertUser(response))
@@ -39,19 +44,14 @@ public class ProfileViewModel extends ViewModel {
                         ApiUtils.NETWORK_EXCEPTIONS.contains(throwable.getClass()) ?
                                 mStorage.getUser(mUsername) :
                                 null)
-                .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(disposable -> mIsLoading.postValue(true))
                 .doFinally(() ->  mIsLoading.postValue(false))
                 .subscribe(
-                        response -> {
-                            //mIsErrorVisible.set(false);
-                            mIsErrorVisible.postValue(false);
-
+                        response -> { mStorage.insertUser(response);
+                            mProfile.set(response.getUser());
+                            mIsLoading.postValue(false);
                         },
-                        throwable -> {
-
-                            // mIsErrorVisible.set(true);
-                            mIsErrorVisible.postValue(true);
+                        throwable -> { mIsErrorVisible.postValue(true);
 
                         });
      }
@@ -76,6 +76,9 @@ public class ProfileViewModel extends ViewModel {
 
     public SwipeRefreshLayout.OnRefreshListener getOnRefreshListener() {
         return mOnRefreshListener;
+    }
+    public ObservableField<User> getProfile() {
+        return mProfile;
     }
 
 
