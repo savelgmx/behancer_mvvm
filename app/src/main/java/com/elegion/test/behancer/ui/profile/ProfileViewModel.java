@@ -19,19 +19,14 @@ public class ProfileViewModel extends ViewModel {
     private String mUsername;
     private Storage mStorage;
     private Disposable mDisposable;
-    private MutableLiveData<Boolean> mIsLoading = new MutableLiveData<>();
-    private MutableLiveData<Boolean> mIsErrorVisible = new MutableLiveData<>();
-
+    private ObservableBoolean mIsLoading = new ObservableBoolean();
+    private ObservableBoolean mIsErrorVisible = new ObservableBoolean();
     private ObservableField<User> mProfile = new ObservableField<>();
-
-  //  private ObservableBoolean mIsErrorVisible = new ObservableBoolean(false);
-    //private SwipeRefreshLayout mSwipeRefreshLayout = view.FindViewById(R.id.profile_refresher);
     private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = this::loadProfile;
 
     public ProfileViewModel(Storage storage, String user){
         mStorage=storage;
         mUsername = user;
-       // mUser = mStorage.getUserWithImageLiveByName(mUsername);
         loadProfile();
     }
 
@@ -44,14 +39,14 @@ public class ProfileViewModel extends ViewModel {
                         ApiUtils.NETWORK_EXCEPTIONS.contains(throwable.getClass()) ?
                                 mStorage.getUser(mUsername) :
                                 null)
-                .doOnSubscribe(disposable -> mIsLoading.postValue(true))
-                .doFinally(() ->  mIsLoading.postValue(false))
+                .doOnSubscribe(disposable -> mIsLoading.set(true))
+                .doFinally(() ->  mIsLoading.set(false))
                 .subscribe(
                         response -> { mStorage.insertUser(response);
                             mProfile.set(response.getUser());
-                            mIsLoading.postValue(false);
+                            mIsLoading.set(false);
                         },
-                        throwable -> { mIsErrorVisible.postValue(true);
+                        throwable -> { mIsErrorVisible.set(true);
 
                         });
      }
@@ -65,11 +60,11 @@ public class ProfileViewModel extends ViewModel {
 
     }
 
-    public MutableLiveData<Boolean> getIsLoading() {
+    public ObservableBoolean getIsLoading(){
         return mIsLoading;
     }
 
-    public MutableLiveData<Boolean> getIsErrorVisible() {
+    public ObservableBoolean getIsErrorVisible(){
         return mIsErrorVisible;
     }
 
@@ -77,6 +72,7 @@ public class ProfileViewModel extends ViewModel {
     public SwipeRefreshLayout.OnRefreshListener getOnRefreshListener() {
         return mOnRefreshListener;
     }
+
     public ObservableField<User> getProfile() {
         return mProfile;
     }
