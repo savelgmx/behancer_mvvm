@@ -67,6 +67,8 @@
             android:text="@{profile.profile.location}"
         android:layout_below="@id/tv_created_on_details" />
 
+
+
 </RelativeLayout>
 
 </layout>

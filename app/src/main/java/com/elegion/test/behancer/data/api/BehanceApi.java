@@ -19,4 +19,11 @@ public interface BehanceApi {
 
     @GET("v2/users/{username}")
     Single<UserResponse> getUserInfo(@Path("username") String username);
+
+    //API for user projects
+    //Нужный запрос - GET /v2/users/{user}/projects
+    @GET("/v2/users/{user}/projects")
+    Single<ProjectResponse> getUserProjects(@Path("user") String user);
+
+
 }
