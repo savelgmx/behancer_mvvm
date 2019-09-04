@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.View;
 
 import com.elegion.test.behancer.R;
 import com.elegion.test.behancer.data.Storage;
@@ -24,7 +25,16 @@ public class ProfileViewModel extends ViewModel {
     private ObservableField<User> mProfile = new ObservableField<>();
     private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = this::loadProfile;
 
+    //private final onItemClickListener mOnItemClickListener;
 
+    //https://habr.com/ru/company/touchinstinct/blog/330830/
+
+ /*
+     <variable
+
+    name="onItemClickListener"
+    type="com.elegion.test.behancer.ui.profile.ProfileViewModel.OnItemClickListener" />
+            */
     public ProfileViewModel(Storage storage, String user){
         mStorage=storage;
         mUsername = user;
@@ -77,6 +87,9 @@ public class ProfileViewModel extends ViewModel {
     public ObservableField<User> getProfile() {
         return mProfile;
     }
+
+
+
 
 
 }
