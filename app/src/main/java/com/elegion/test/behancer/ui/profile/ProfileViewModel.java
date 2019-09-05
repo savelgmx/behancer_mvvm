@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.View;
 
 import com.elegion.test.behancer.R;
@@ -88,7 +89,11 @@ public class ProfileViewModel extends ViewModel {
         return mProfile;
     }
 
+  public void onUserProjectsButtonClicked(View view){
+        //здесь вызываем метод для отбражения списка проектов пользователя
+      Log.d("behancer_mvvm","вызываем метод для отбражения списка проектов пользователя");
 
+  }
 
 
 
