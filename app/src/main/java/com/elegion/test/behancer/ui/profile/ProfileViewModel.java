@@ -1,6 +1,5 @@
 package com.elegion.test.behancer.ui.profile;
 
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
@@ -8,12 +7,10 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 
-import com.elegion.test.behancer.R;
 import com.elegion.test.behancer.data.Storage;
 import com.elegion.test.behancer.data.model.user.User;
 import com.elegion.test.behancer.utils.ApiUtils;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
@@ -93,10 +90,21 @@ public class ProfileViewModel extends ViewModel {
         //здесь вызываем метод для отбражения списка проектов пользователя
       Log.d("behancer_mvvm","вызываем метод для отбражения списка проектов пользователя");
 
+/*
+      Intent intent = new Intent(getActivity(), UserProjectsActivity.class);
+      Bundle args = new Bundle();
+      args.putString(ProfileFragment.PROFILE_KEY, mUsername);
+      intent.putExtra(ProfileActivity.USERNAME_KEY, args);
+      startActivity(intent);
+*/
+
+
   }
 
 
-
+    public interface OnItemClickListener {
+        void onItemClick(String username);
+    }
 }
 
 
