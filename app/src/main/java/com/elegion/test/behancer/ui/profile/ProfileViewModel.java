@@ -23,8 +23,6 @@ public class ProfileViewModel extends ViewModel {
     private ObservableField<User> mProfile = new ObservableField<>();
     private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = this::loadProfile;
 
-    //private final onItemClickListener mOnItemClickListener;
-
     //https://habr.com/ru/company/touchinstinct/blog/330830/
 
  /*
@@ -89,15 +87,6 @@ public class ProfileViewModel extends ViewModel {
   public void onUserProjectsButtonClicked(View view){
         //здесь вызываем метод для отбражения списка проектов пользователя
       Log.d("behancer_mvvm","вызываем метод для отбражения списка проектов пользователя");
-
-/*
-      Intent intent = new Intent(getActivity(), UserProjectsActivity.class);
-      Bundle args = new Bundle();
-      args.putString(ProfileFragment.PROFILE_KEY, mUsername);
-      intent.putExtra(ProfileActivity.USERNAME_KEY, args);
-      startActivity(intent);
-*/
-
 
   }
 
