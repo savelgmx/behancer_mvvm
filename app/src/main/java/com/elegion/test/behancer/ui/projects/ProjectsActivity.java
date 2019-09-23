@@ -11,15 +11,13 @@ import com.elegion.test.behancer.data.Storage;
  */
 
 /*
-Добавить реализацию ViewModel на экран Profile с помощью databinding library
+ДНа ProfileFragment добавить кнопку, которая ведет на экран со списком проектов этого пользователя - UserProjectsFragment
+Нужный запрос - GET /v2/users/{user}/projects
+По факту, это будет экран, похожий на ProjectsFragment, поэтому вам нужно по максимуму переиспользовать текущий код
+При нажатии на элементы списка UserProjectsFragment - ничего не должно происходить
+Выделите одинаковый код в базовый вьюмодель и подготовьте абстрактные методы для наследников
+ - ProjectsFragment и UserProjectsFragment/ProjectsViewModel и UserProjectsViewModel
 
-Критерии проверки
-1) ProfileActivity наследуется от SingleFragmentActivity,
-в R.layout.fr_profile есть SwipeRefreshLayout
-(по аналогии с рефакторингом экрана проектов, см. уроки)
-2) В fr_profile добавлены необходимые изменения для работы с databinding library
-3) Создан класс ProfileViewModel, который поставляет данные для ProfileFragment/fr_profile
-4) Логика загрузки, отображения, обработки ошибок перенесена в ProfileViewModel/fr_pofile
  */
 public class ProjectsActivity extends SingleFragmentActivity implements Storage.StorageOwner {
 

@@ -8,7 +8,8 @@ import com.elegion.test.behancer.data.Storage;
 public class UserProjectsActivity extends SingleFragmentActivity implements Storage.StorageOwner {
     @Override
     protected Fragment getFragment() {
-        return null;
+        //return null;
+        return UserProjectsFragment.newInstance();
     }
 
     @Override

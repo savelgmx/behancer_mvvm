@@ -22,4 +22,7 @@ public class UserProjectsFragment extends Fragment {
 
     };
 
+    public static UserProjectsFragment newInstance() {
+        return new UserProjectsFragment();
+    }
 }
