@@ -7,28 +7,50 @@ import android.arch.paging.PagedList;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 
+import com.elegion.test.behancer.BuildConfig;
 import com.elegion.test.behancer.data.Storage;
+import com.elegion.test.behancer.data.model.project.ProjectResponse;
 import com.elegion.test.behancer.data.model.project.RichProject;
 import com.elegion.test.behancer.ui.profile.ProfileViewModel;
+import com.elegion.test.behancer.utils.ApiUtils;
+
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class UserProjectsViewModel extends ViewModel {
+
+    private Disposable mDisposable;
 
     private Storage mStorage;
     private ProfileViewModel.OnItemClickListener mOnItemClickListener;
     private MutableLiveData<Boolean> mIsLoading = new MutableLiveData<>();
     private MutableLiveData<Boolean> mIsErrorVisible = new MutableLiveData<>();
-    private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener;
     private LiveData<PagedList<RichProject>> mUserProjects;
+    private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener=this::updateUserProjects;
 
 
     public UserProjectsViewModel(Storage storage, ProfileViewModel.OnItemClickListener onItemClickListener) {
         mStorage = storage;
         mOnItemClickListener = onItemClickListener;
+        mUserProjects = mStorage.getProjectsPaged();
         updateUserProjects();
     }
 
     private void updateUserProjects() {
         Log.d("behancer_mvvm", "Here list of user projects must be updated");
+
+        mDisposable = ApiUtils.getApiService().getUserProjects("Hidden_Foo")
+                .doOnSubscribe(disposable -> mIsLoading.postValue(true))
+                .doFinally(() -> mIsLoading.postValue(false))
+                .doOnSuccess(response -> mIsErrorVisible.postValue(false))
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                        response -> mStorage.insertProjects(response),
+                        throwable -> {
+                            boolean value = mUserProjects.getValue() == null || mUserProjects.getValue().size() == 0;
+                            mIsErrorVisible.postValue(value);
+                        });
+
 
     }
 
