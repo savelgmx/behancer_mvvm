@@ -31,6 +31,9 @@ public class ProfileFragment extends Fragment {
     public static final String PROFILE_KEY = "PROFILE_KEY";
     private String mUsername;
     private ProfileViewModel mProfileViewModel;
+    private ProfileViewModel.OnItemClickListener mOnItemClickLister;
+
+
 
     public static ProfileFragment newInstance(Bundle args) {
         ProfileFragment fragment = new ProfileFragment();
@@ -48,13 +51,13 @@ public class ProfileFragment extends Fragment {
 
         if (context instanceof Storage.StorageOwner) {
             Storage storage = ((Storage.StorageOwner) context).obtainStorage();
-            //   mProfileViewModel = new ProfileViewModel(storage,mUsername);
+            mProfileViewModel = new ProfileViewModel(storage,mUsername,mOnItemClickLister);
 
             ViewModelProvider.Factory factory = new ViewModelProvider.Factory() {
                 @NonNull
                 @Override
                 public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-                    return (T) new ProfileViewModel(storage,mUsername);
+                    return (T) new ProfileViewModel(storage,mUsername,mOnItemClickLister);
                 }
             };
             mProfileViewModel = ViewModelProviders.of(this, factory).get(ProfileViewModel.class);
@@ -73,5 +76,6 @@ public class ProfileFragment extends Fragment {
         return binding.getRoot();
 
     }
+
 
 }

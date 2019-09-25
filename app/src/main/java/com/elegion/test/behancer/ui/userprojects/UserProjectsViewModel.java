@@ -6,14 +6,10 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.paging.PagedList;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
-
-import com.elegion.test.behancer.BuildConfig;
 import com.elegion.test.behancer.data.Storage;
-import com.elegion.test.behancer.data.model.project.ProjectResponse;
 import com.elegion.test.behancer.data.model.project.RichProject;
 import com.elegion.test.behancer.ui.profile.ProfileViewModel;
 import com.elegion.test.behancer.utils.ApiUtils;
-
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 

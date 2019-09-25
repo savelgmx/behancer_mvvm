@@ -23,18 +23,23 @@ public class ProfileViewModel extends ViewModel {
     private ObservableField<User> mProfile = new ObservableField<>();
     private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = this::loadProfile;
 
+     private final OnItemClickListener mOnItemClickListener;
+
+/*
+   public ProfileViewModel(OnItemClickListener onItemClickListener){
+        mOnItemClickListener = onItemClickListener;
+
+    }
+*/
+
     //https://habr.com/ru/company/touchinstinct/blog/330830/
 
- /*
-     <variable
-
-    name="onItemClickListener"
-    type="com.elegion.test.behancer.ui.profile.ProfileViewModel.OnItemClickListener" />
-            */
-    public ProfileViewModel(Storage storage, String user){
+    public ProfileViewModel(Storage storage, String user,OnItemClickListener onItemClickListener){
         mStorage=storage;
         mUsername = user;
         loadProfile();
+        //mOnItemClickListener = null;
+        mOnItemClickListener = onItemClickListener;
     }
 
 
@@ -87,6 +92,8 @@ public class ProfileViewModel extends ViewModel {
   public void onUserProjectsButtonClicked(View view){
         //здесь вызываем метод для отбражения списка проектов пользователя
       Log.d("behancer_mvvm","вызываем метод для отбражения списка проектов пользователя");
+
+     // OnItemClickListener onItemClickListener
 
   }
 
