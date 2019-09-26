@@ -35,9 +35,7 @@ public class ProfileFragment extends Fragment {
     private String mUsername;
     private ProfileViewModel mProfileViewModel;
 
-
-
-    private ProfileViewModel.OnItemClickListener mOnItemClickListener = username->{
+    public final OnItemClickListener mOnItemClickListener = username -> {
         //здесь должен быть вызов списка проектов пользвателя
         Log.d("behancer_mvvm","ProfileFragment Intent вызываем UserProjectsActivity.class");
 
@@ -88,8 +86,12 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ProfileBinding binding = ProfileBinding.inflate(inflater,container,false);
         binding.setPm(mProfileViewModel);
+        binding.setLifecycleOwner(this);
         return binding.getRoot();
+    }
 
+    public interface OnItemClickListener {
+        void onItemClick(String username);
     }
 
 

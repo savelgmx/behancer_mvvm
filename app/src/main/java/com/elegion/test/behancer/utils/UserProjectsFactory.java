@@ -5,13 +5,14 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
 import com.elegion.test.behancer.data.Storage;
+import com.elegion.test.behancer.ui.profile.ProfileFragment;
 import com.elegion.test.behancer.ui.profile.ProfileViewModel;
 import com.elegion.test.behancer.ui.userprojects.UserProjectsViewModel;
 
 public class UserProjectsFactory extends ViewModelProvider.NewInstanceFactory {
-    private ProfileViewModel.OnItemClickListener mOnItemClickListener;
+    private ProfileFragment.OnItemClickListener mOnItemClickListener;
     private Storage mStorage;
-    public UserProjectsFactory(Storage storage , ProfileViewModel.OnItemClickListener onItemClickListener ){
+    public UserProjectsFactory(Storage storage , ProfileFragment.OnItemClickListener onItemClickListener ){
         mStorage = storage;
         mOnItemClickListener=onItemClickListener;
     }

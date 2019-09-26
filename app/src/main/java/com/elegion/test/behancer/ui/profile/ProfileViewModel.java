@@ -4,15 +4,12 @@ import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
-import android.view.View;
-
 import com.elegion.test.behancer.data.Storage;
 import com.elegion.test.behancer.data.model.user.User;
 import com.elegion.test.behancer.utils.ApiUtils;
-
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+
 
 public class ProfileViewModel extends ViewModel {
     private String mUsername;
@@ -23,20 +20,16 @@ public class ProfileViewModel extends ViewModel {
     private ObservableField<User> mProfile = new ObservableField<>();
     private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = this::loadProfile;
 
-     private final OnItemClickListener mOnItemClickListener;
+    private final ProfileFragment.OnItemClickListener mOnItemClickListener;
 
-   public ProfileViewModel(OnItemClickListener onItemClickListener){
-        mOnItemClickListener = onItemClickListener;
-
-    }
-
-    //https://habr.com/ru/company/touchinstinct/blog/330830/
-
-    public ProfileViewModel(Storage storage, String user,OnItemClickListener onItemClickListener){
+    public ProfileViewModel(
+            Storage storage,
+            String user,
+            ProfileFragment.OnItemClickListener onItemClickListener
+    ){
         mStorage=storage;
         mUsername = user;
         loadProfile();
-        //mOnItemClickListener = null;
         mOnItemClickListener = onItemClickListener;
     }
 
@@ -59,7 +52,7 @@ public class ProfileViewModel extends ViewModel {
                         throwable -> { mIsErrorVisible.set(true);
 
                         });
-     }
+    }
 
     @Override
     public void onCleared(){
@@ -87,19 +80,10 @@ public class ProfileViewModel extends ViewModel {
         return mProfile;
     }
 
-  public void onUserProjectsButtonClicked(View view){
-        //здесь вызываем метод для отбражения списка проектов пользователя
-      Log.d("behancer_mvvm","вызываем метод для отбражения списка проектов пользователя");
-
-     // OnItemClickListener onItemClickListener
-
-  }
-
-
-    public interface OnItemClickListener {
-
-        void onItemClick(String username);
+    public ProfileFragment.OnItemClickListener getOnItemClickListener() {
+        return mOnItemClickListener;
     }
+
+
+
 }
-
-

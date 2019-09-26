@@ -8,9 +8,7 @@
             type="com.elegion.test.behancer.ui.profile.ProfileViewModel" />
         <variable
             name="onItemClickListener"
-            type="com.elegion.test.behancer.ui.profile.ProfileViewModel.OnItemClickListener" />
-
-
+            type="com.elegion.test.behancer.ui.profile.ProfileFragment.OnItemClickListener" />
 
         <import
             alias="utils"

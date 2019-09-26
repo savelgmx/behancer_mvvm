@@ -13,13 +13,12 @@ import android.view.ViewGroup;
 
 import com.elegion.test.behancer.data.Storage;
 import com.elegion.test.behancer.databinding.UserProjectsBinding;
-
-import com.elegion.test.behancer.ui.profile.ProfileViewModel;
+import com.elegion.test.behancer.ui.profile.ProfileFragment;
 import com.elegion.test.behancer.utils.UserProjectsFactory;
 
 public class UserProjectsFragment extends Fragment {
     private UserProjectsViewModel mUserProjectsViewModel;
-    private ProfileViewModel.OnItemClickListener mOnItemClickListener;
+    private ProfileFragment.OnItemClickListener mOnItemClickListener;
 
     public static UserProjectsFragment newInstance() {
         return new UserProjectsFragment();
