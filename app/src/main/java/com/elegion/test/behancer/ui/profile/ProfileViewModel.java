@@ -25,12 +25,10 @@ public class ProfileViewModel extends ViewModel {
 
      private final OnItemClickListener mOnItemClickListener;
 
-/*
    public ProfileViewModel(OnItemClickListener onItemClickListener){
         mOnItemClickListener = onItemClickListener;
 
     }
-*/
 
     //https://habr.com/ru/company/touchinstinct/blog/330830/
 
@@ -99,6 +97,7 @@ public class ProfileViewModel extends ViewModel {
 
 
     public interface OnItemClickListener {
+
         void onItemClick(String username);
     }
 }

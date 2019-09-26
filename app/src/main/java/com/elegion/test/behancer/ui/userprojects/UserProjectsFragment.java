@@ -13,23 +13,13 @@ import android.view.ViewGroup;
 
 import com.elegion.test.behancer.data.Storage;
 import com.elegion.test.behancer.databinding.UserProjectsBinding;
-import com.elegion.test.behancer.ui.profile.ProfileActivity;
-import com.elegion.test.behancer.ui.profile.ProfileFragment;
+
 import com.elegion.test.behancer.ui.profile.ProfileViewModel;
 import com.elegion.test.behancer.utils.UserProjectsFactory;
 
 public class UserProjectsFragment extends Fragment {
     private UserProjectsViewModel mUserProjectsViewModel;
-    private ProfileViewModel.OnItemClickListener mOnItemClickListener = username->{
-        //здесь должен быть вызов списка проектов пользвателя
-
-      Intent intent = new Intent(getActivity(), UserProjectsActivity.class);
-      Bundle args = new Bundle();
-      args.putString(ProfileFragment.PROFILE_KEY, username);
-      intent.putExtra(ProfileActivity.USERNAME_KEY, args);
-      startActivity(intent);
-
-    };
+    private ProfileViewModel.OnItemClickListener mOnItemClickListener;
 
     public static UserProjectsFragment newInstance() {
         return new UserProjectsFragment();
