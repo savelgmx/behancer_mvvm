@@ -31,6 +31,7 @@
             <include
                 layout="@layout/v_profile"
                 bind:profile="@{pm}"
+                bind:onItemClickListener="@{pm.onItemClickListener}"
                 android:visibility="@{pm.isErrorVisible ? P.GONE : P.VISIBLE}" />
 
             <LinearLayout

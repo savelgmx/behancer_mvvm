@@ -18,7 +18,7 @@ import com.elegion.test.behancer.utils.UserProjectsFactory;
 
 public class UserProjectsFragment extends Fragment {
     private UserProjectsViewModel mUserProjectsViewModel;
-    private ProfileFragment.OnItemClickListener mOnItemClickListener;
+
 
     public static UserProjectsFragment newInstance() {
         return new UserProjectsFragment();
@@ -28,7 +28,7 @@ public class UserProjectsFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof Storage.StorageOwner) {
             Storage storage = ((Storage.StorageOwner) context).obtainStorage();
-            UserProjectsFactory factory = new UserProjectsFactory(storage, mOnItemClickListener);
+            UserProjectsFactory factory = new UserProjectsFactory(storage);
             mUserProjectsViewModel = ViewModelProviders.of(this, factory).get(UserProjectsViewModel.class);
         }
 

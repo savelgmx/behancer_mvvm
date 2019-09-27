@@ -29,9 +29,10 @@ public class ProfileViewModel extends ViewModel {
     ){
         mStorage=storage;
         mUsername = user;
-        loadProfile();
         mOnItemClickListener = onItemClickListener;
-    }
+        loadProfile();
+
+     }
 
 
     public void loadProfile() {

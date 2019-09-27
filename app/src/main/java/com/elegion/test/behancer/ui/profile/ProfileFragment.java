@@ -64,13 +64,17 @@ public class ProfileFragment extends Fragment {
 
         if (context instanceof Storage.StorageOwner) {
             Storage storage = ((Storage.StorageOwner) context).obtainStorage();
-            mProfileViewModel = new ProfileViewModel(storage,mUsername,mOnItemClickListener);
+
 
             ViewModelProvider.Factory factory = new ViewModelProvider.Factory() {
                 @NonNull
                 @Override
                 public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-                    return (T) new ProfileViewModel(storage,mUsername,mOnItemClickListener);
+                    return (T) new ProfileViewModel(
+                            storage,
+                            mUsername,
+                            mOnItemClickListener
+                    );
                 }
             };
             mProfileViewModel = ViewModelProviders.of(this, factory).get(ProfileViewModel.class);
