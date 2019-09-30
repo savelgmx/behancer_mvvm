@@ -13,11 +13,12 @@ import android.view.ViewGroup;
 
 import com.elegion.test.behancer.data.Storage;
 import com.elegion.test.behancer.databinding.UserProjectsBinding;
-import com.elegion.test.behancer.ui.profile.ProfileFragment;
+import com.elegion.test.behancer.ui.projects.ProjectsAdapter;
 import com.elegion.test.behancer.utils.UserProjectsFactory;
 
 public class UserProjectsFragment extends Fragment {
     private UserProjectsViewModel mUserProjectsViewModel;
+    private ProjectsAdapter.OnItemClickListener mOnItemClickListener=null;
 
 
     public static UserProjectsFragment newInstance() {
@@ -28,7 +29,7 @@ public class UserProjectsFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof Storage.StorageOwner) {
             Storage storage = ((Storage.StorageOwner) context).obtainStorage();
-            UserProjectsFactory factory = new UserProjectsFactory(storage);
+            UserProjectsFactory factory = new UserProjectsFactory(storage,mOnItemClickListener);
             mUserProjectsViewModel = ViewModelProviders.of(this, factory).get(UserProjectsViewModel.class);
         }
 

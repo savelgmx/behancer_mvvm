@@ -5,14 +5,18 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.arch.paging.PagedList;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import com.elegion.test.behancer.data.Storage;
 import com.elegion.test.behancer.data.model.project.RichProject;
+import com.elegion.test.behancer.ui.projects.ProjectsAdapter;
 import com.elegion.test.behancer.utils.ApiUtils;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class UserProjectsViewModel extends ViewModel {
+
 
     private Disposable mDisposable;
 
@@ -23,11 +27,13 @@ public class UserProjectsViewModel extends ViewModel {
     private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener=this::updateUserProjects;
 
 
-    public UserProjectsViewModel(Storage storage) {
+    public UserProjectsViewModel(Storage storage,ProjectsAdapter.OnItemClickListener onItemClickListener) {
         mStorage = storage;
 
         mUserProjects = mStorage.getProjectsPaged();
         updateUserProjects();
+
+
     }
 
     private void updateUserProjects() {
