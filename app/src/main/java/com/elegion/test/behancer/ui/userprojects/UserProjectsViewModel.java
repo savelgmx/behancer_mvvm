@@ -27,12 +27,10 @@ public class UserProjectsViewModel extends ViewModel {
     private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener=this::updateUserProjects;
 
 
-    public UserProjectsViewModel(Storage storage,ProjectsAdapter.OnItemClickListener onItemClickListener) {
+    public UserProjectsViewModel(Storage storage) {
         mStorage = storage;
-
         mUserProjects = mStorage.getProjectsPaged();
         updateUserProjects();
-
 
     }
 
@@ -50,8 +48,6 @@ public class UserProjectsViewModel extends ViewModel {
                             boolean value = mUserProjects.getValue() == null || mUserProjects.getValue().size() == 0;
                             mIsErrorVisible.postValue(value);
                         });
-
-
     }
 
 

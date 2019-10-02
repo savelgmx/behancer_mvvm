@@ -10,14 +10,13 @@ import com.elegion.test.behancer.ui.userprojects.UserProjectsViewModel;
 public class UserProjectsFactory extends ViewModelProvider.NewInstanceFactory {
 
     private Storage mStorage;
-    private ProjectsAdapter.OnItemClickListener mOnItemClickListener;
-    public UserProjectsFactory(Storage storage ,ProjectsAdapter.OnItemClickListener onItemClickListener){
+    public UserProjectsFactory(Storage storage ){
         mStorage = storage;
-        mOnItemClickListener = onItemClickListener;
+      //  mOnItemClickListener = onItemClickListener;
     }
     @NonNull
     @Override
      public <T extends ViewModel> T create(@NonNull Class<T> modelClass){
-        return (T) new UserProjectsViewModel(mStorage,mOnItemClickListener);
+        return (T) new UserProjectsViewModel(mStorage);
     }
 }

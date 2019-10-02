@@ -29,7 +29,7 @@ public class UserProjectsFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof Storage.StorageOwner) {
             Storage storage = ((Storage.StorageOwner) context).obtainStorage();
-            UserProjectsFactory factory = new UserProjectsFactory(storage,mOnItemClickListener);
+            UserProjectsFactory factory = new UserProjectsFactory(storage);
             mUserProjectsViewModel = ViewModelProviders.of(this, factory).get(UserProjectsViewModel.class);
         }
 

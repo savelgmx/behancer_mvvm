@@ -29,6 +29,7 @@ public class CustomBindingAdapter {
         recyclerView.setAdapter(adapter);
     }
 
+
     @BindingAdapter({"bind:refreshState", "bind:onRefresh"})
     public static void configureSwipeRefreshLayout(SwipeRefreshLayout layout, boolean isLoading, SwipeRefreshLayout.OnRefreshListener listener) {
         layout.setOnRefreshListener(listener);
