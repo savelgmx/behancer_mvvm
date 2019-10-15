@@ -16,20 +16,27 @@ import com.elegion.test.behancer.databinding.UserProjectsBinding;
 import com.elegion.test.behancer.ui.projects.ProjectsAdapter;
 import com.elegion.test.behancer.utils.UserProjectsFactory;
 
+import static com.elegion.test.behancer.ui.profile.ProfileFragment.PROFILE_KEY;
+
 public class UserProjectsFragment extends Fragment {
     private UserProjectsViewModel mUserProjectsViewModel;
     private ProjectsAdapter.OnItemClickListener mOnItemClickListener=null;
+    private String mUsername;
 
 
-    public static UserProjectsFragment newInstance() {
-        return new UserProjectsFragment();
+    public static UserProjectsFragment newInstance(Bundle args) {
+       // return new UserProjectsFragment(args);
+        UserProjectsFragment projectsFragment = new UserProjectsFragment();
+        projectsFragment.setArguments(args);
+        return projectsFragment;
     }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        mUsername = getArguments().getString(PROFILE_KEY);
         if (context instanceof Storage.StorageOwner) {
             Storage storage = ((Storage.StorageOwner) context).obtainStorage();
-            UserProjectsFactory factory = new UserProjectsFactory(storage);
+            UserProjectsFactory factory = new UserProjectsFactory(storage,mUsername);
             mUserProjectsViewModel = ViewModelProviders.of(this, factory).get(UserProjectsViewModel.class);
         }
 

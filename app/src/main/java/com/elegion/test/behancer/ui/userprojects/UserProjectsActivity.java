@@ -7,10 +7,14 @@ import com.elegion.test.behancer.common.SingleFragmentActivity;
 import com.elegion.test.behancer.data.Storage;
 
 public class UserProjectsActivity extends SingleFragmentActivity implements Storage.StorageOwner {
+    public static final String USERNAME_KEY = "USERNAME_KEY";
+
     @Override
     protected Fragment getFragment() {
-        //return null;
-        return UserProjectsFragment.newInstance();
+        if (getIntent() != null) {
+            return UserProjectsFragment.newInstance(getIntent().getBundleExtra(USERNAME_KEY));
+        }
+        throw new IllegalStateException("getIntent cannot be null");
     }
 
     @Override

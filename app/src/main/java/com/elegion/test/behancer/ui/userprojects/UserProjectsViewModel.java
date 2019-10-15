@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import com.elegion.test.behancer.data.Storage;
+import com.elegion.test.behancer.data.model.project.ProjectResponse;
 import com.elegion.test.behancer.data.model.project.RichProject;
 import com.elegion.test.behancer.ui.projects.ProjectsAdapter;
 import com.elegion.test.behancer.utils.ApiUtils;
@@ -21,23 +22,26 @@ public class UserProjectsViewModel extends ViewModel {
     private Disposable mDisposable;
 
     private Storage mStorage;
+    private String mUsername;
     private MutableLiveData<Boolean> mIsLoading = new MutableLiveData<>();
     private MutableLiveData<Boolean> mIsErrorVisible = new MutableLiveData<>();
     private LiveData<PagedList<RichProject>> mUserProjects;
     private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener=this::updateUserProjects;
 
 
-    public UserProjectsViewModel(Storage storage) {
+    public UserProjectsViewModel(Storage storage, String username) {
         mStorage = storage;
+        mUsername =username;
         mUserProjects = mStorage.getProjectsPaged();
         updateUserProjects();
 
     }
 
     private void updateUserProjects() {
-        Log.d("behancer_mvvm", "Here list of user projects must be updated");
+        Log.d("behancer_mvvm", "Here list of projects must be updated for user  "+mUsername);
 
-        mDisposable = ApiUtils.getApiService().getUserProjects("Hidden_Foo")
+        mDisposable = ApiUtils.getApiService().getUserProjects(mUsername)
+                .map(ProjectResponse::getProjects)
                 .doOnSubscribe(disposable -> mIsLoading.postValue(true))
                 .doFinally(() -> mIsLoading.postValue(false))
                 .doOnSuccess(response -> mIsErrorVisible.postValue(false))
@@ -50,6 +54,13 @@ public class UserProjectsViewModel extends ViewModel {
                         });
     }
 
+    @Override
+    public void onCleared() {
+        mStorage = null;
+        if (mDisposable != null) {
+            mDisposable.dispose();
+        }
+    }
 
     public MutableLiveData<Boolean> getIsLoading() {
         return mIsLoading;
