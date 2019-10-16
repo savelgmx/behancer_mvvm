@@ -36,4 +36,13 @@ public class CustomBindingAdapter {
         layout.post(() -> layout.setRefreshing(isLoading));
     }
 
+    @BindingAdapter("bind:userdata")
+    public static void configureUserRecyclerView(RecyclerView recyclerView,
+                                                 PagedList<RichProject> userprojects) {
+        ProjectsAdapter adapter = new ProjectsAdapter(null);
+        adapter.submitList(userprojects);
+        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
+        recyclerView.setAdapter(adapter);
+    }
+
 }

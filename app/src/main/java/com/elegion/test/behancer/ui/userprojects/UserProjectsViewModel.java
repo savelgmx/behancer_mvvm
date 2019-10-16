@@ -27,6 +27,7 @@ public class UserProjectsViewModel extends ViewModel {
     private MutableLiveData<Boolean> mIsErrorVisible = new MutableLiveData<>();
     private LiveData<PagedList<RichProject>> mUserProjects;
     private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener=this::updateUserProjects;
+    private ProjectsAdapter.OnItemClickListener mOnItemClickListener;
 
 
     public UserProjectsViewModel(Storage storage, String username) {
@@ -62,6 +63,12 @@ public class UserProjectsViewModel extends ViewModel {
         }
     }
 
+    public ProjectsAdapter.OnItemClickListener getOnItemClickListener() {
+        mOnItemClickListener=null;
+        return mOnItemClickListener;
+    }
+
+
     public MutableLiveData<Boolean> getIsLoading() {
         return mIsLoading;
     }
@@ -70,7 +77,7 @@ public class UserProjectsViewModel extends ViewModel {
         return mIsErrorVisible;
     }
 
-    public LiveData<PagedList<RichProject>> getUserProjects() {
+    public LiveData<PagedList<RichProject>> getProjects() {
         return mUserProjects;
     }
 
