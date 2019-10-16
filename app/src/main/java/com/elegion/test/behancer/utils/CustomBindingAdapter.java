@@ -36,9 +36,9 @@ public class CustomBindingAdapter {
         layout.post(() -> layout.setRefreshing(isLoading));
     }
 
-    @BindingAdapter("bind:userdata")
+    @BindingAdapter({"bind:userdata","bind:clickHandler"})
     public static void configureUserRecyclerView(RecyclerView recyclerView,
-                                                 PagedList<RichProject> userprojects) {
+                                                 PagedList<RichProject> userprojects,ProjectsAdapter.OnItemClickListener listener) {
         ProjectsAdapter adapter = new ProjectsAdapter(null);
         adapter.submitList(userprojects);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));

@@ -77,7 +77,7 @@ public class UserProjectsViewModel extends ViewModel {
         return mIsErrorVisible;
     }
 
-    public LiveData<PagedList<RichProject>> getProjects() {
+    public LiveData<PagedList<RichProject>> getUserProjects() {
         return mUserProjects;
     }
 
