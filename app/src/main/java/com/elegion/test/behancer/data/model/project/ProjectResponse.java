@@ -21,4 +21,5 @@ public class ProjectResponse implements Serializable {
     public void setProjects(List<Project> projects) {
         mProjects = projects;
     }
+
 }

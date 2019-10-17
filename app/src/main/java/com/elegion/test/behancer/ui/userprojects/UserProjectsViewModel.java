@@ -38,15 +38,19 @@ public class UserProjectsViewModel extends ViewModel {
 
     }
 
+
     private void updateUserProjects() {
-        Log.d("behancer_mvvm", "Here list of projects must be updated for user  "+mUsername);
 
         mDisposable = ApiUtils.getApiService().getUserProjects(mUsername)
+
                 .map(ProjectResponse::getProjects)
+                .subscribeOn(Schedulers.io())
                 .doOnSubscribe(disposable -> mIsLoading.postValue(true))
                 .doFinally(() -> mIsLoading.postValue(false))
+
                 .doOnSuccess(response -> mIsErrorVisible.postValue(false))
-                .subscribeOn(Schedulers.io())
+                .doOnSuccess(response ->mStorage.insertProjects(response))
+
                 .subscribe(
                         response -> mStorage.insertProjects(response),
                         throwable -> {
@@ -63,27 +67,10 @@ public class UserProjectsViewModel extends ViewModel {
         }
     }
 
-    public ProjectsAdapter.OnItemClickListener getOnItemClickListener() {
-        mOnItemClickListener=null;
-        return mOnItemClickListener;
-    }
-
-
-    public MutableLiveData<Boolean> getIsLoading() {
-        return mIsLoading;
-    }
-
-    public MutableLiveData<Boolean> getIsErrorVisible() {
-        return mIsErrorVisible;
-    }
-
-    public LiveData<PagedList<RichProject>> getUserProjects() {
-        return mUserProjects;
-    }
-
-    public SwipeRefreshLayout.OnRefreshListener getOnRefreshListener() {
-        return mOnRefreshListener;
-
-    }
+    public MutableLiveData<Boolean> getIsLoading() { return mIsLoading; }
+    public MutableLiveData<Boolean> getIsErrorVisible() { return mIsErrorVisible; }
+    public LiveData<PagedList<RichProject>> getUserProjects() { return mUserProjects; }
+    public SwipeRefreshLayout.OnRefreshListener getOnRefreshListener() { return mOnRefreshListener;}
+    public ProjectsAdapter.OnItemClickListener getOnItemClickListener() {return null;}
 
 }

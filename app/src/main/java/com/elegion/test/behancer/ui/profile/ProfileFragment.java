@@ -37,14 +37,11 @@ public class ProfileFragment extends Fragment {
 
     public final OnItemClickListener mOnItemClickListener = username -> {
         //здесь должен быть вызов списка проектов пользвателя
-        Log.d("behancer_mvvm","ProfileFragment Intent вызываем UserProjectsActivity.class");
-
         Intent intent = new Intent(getActivity(), UserProjectsActivity.class);
         Bundle args = new Bundle();
         args.putString(ProfileFragment.PROFILE_KEY, username);
         intent.putExtra(ProfileActivity.USERNAME_KEY, args);
         startActivity(intent);
-
     };
 
 
