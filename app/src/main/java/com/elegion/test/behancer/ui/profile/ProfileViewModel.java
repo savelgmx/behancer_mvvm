@@ -4,6 +4,8 @@ import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.v4.widget.SwipeRefreshLayout;
+
+import com.elegion.test.behancer.common.BaseViewModel;
 import com.elegion.test.behancer.data.Storage;
 import com.elegion.test.behancer.data.model.user.User;
 import com.elegion.test.behancer.utils.ApiUtils;
@@ -11,7 +13,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class ProfileViewModel extends ViewModel {
+public class ProfileViewModel extends BaseViewModel {
     private String mUsername;
     private Storage mStorage;
     private Disposable mDisposable;
@@ -67,22 +69,12 @@ public class ProfileViewModel extends ViewModel {
     public ObservableBoolean getIsLoading(){
         return mIsLoading;
     }
-
     public ObservableBoolean getIsErrorVisible(){
         return mIsErrorVisible;
     }
-
-
-    public SwipeRefreshLayout.OnRefreshListener getOnRefreshListener() {
-        return mOnRefreshListener;
-    }
-
-    public ObservableField<User> getProfile() {
-        return mProfile;
-    }
-
-    public ProfileFragment.OnItemClickListener getOnItemClickListener() {
-        return mOnItemClickListener;
+    public SwipeRefreshLayout.OnRefreshListener getOnRefreshListener() { return mOnRefreshListener; }
+    public ObservableField<User> getProfile() {return mProfile; }
+    public ProfileFragment.OnItemClickListener getOnItemClickListener() { return mOnItemClickListener;
     }
 
 

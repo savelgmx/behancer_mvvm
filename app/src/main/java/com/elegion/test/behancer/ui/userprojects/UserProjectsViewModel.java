@@ -5,18 +5,18 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.arch.paging.PagedList;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+
+import com.elegion.test.behancer.common.BaseViewModel;
 import com.elegion.test.behancer.data.Storage;
 import com.elegion.test.behancer.data.model.project.ProjectResponse;
 import com.elegion.test.behancer.data.model.project.RichProject;
 import com.elegion.test.behancer.ui.projects.ProjectsAdapter;
 import com.elegion.test.behancer.utils.ApiUtils;
+
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class UserProjectsViewModel extends ViewModel {
+public class UserProjectsViewModel extends BaseViewModel {
 
 
     private Disposable mDisposable;
@@ -49,7 +49,6 @@ public class UserProjectsViewModel extends ViewModel {
                 .doFinally(() -> mIsLoading.postValue(false))
 
                 .doOnSuccess(response -> mIsErrorVisible.postValue(false))
-                .doOnSuccess(response ->mStorage.insertProjects(response))
 
                 .subscribe(
                         response -> mStorage.insertProjects(response),
@@ -57,6 +56,7 @@ public class UserProjectsViewModel extends ViewModel {
                             boolean value = mUserProjects.getValue() == null || mUserProjects.getValue().size() == 0;
                             mIsErrorVisible.postValue(value);
                         });
+
     }
 
     @Override

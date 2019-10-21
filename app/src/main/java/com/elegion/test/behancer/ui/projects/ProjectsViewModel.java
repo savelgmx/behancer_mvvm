@@ -7,6 +7,7 @@ import android.arch.paging.PagedList;
 import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.elegion.test.behancer.BuildConfig;
+import com.elegion.test.behancer.common.BaseViewModel;
 import com.elegion.test.behancer.data.Storage;
 import com.elegion.test.behancer.data.model.project.ProjectResponse;
 import com.elegion.test.behancer.data.model.project.RichProject;
@@ -18,7 +19,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * @author Azret Magometov
  */
-public class ProjectsViewModel extends ViewModel {
+public class ProjectsViewModel extends BaseViewModel {
 
     private Disposable mDisposable;
     private Storage mStorage;
@@ -60,23 +61,13 @@ public class ProjectsViewModel extends ViewModel {
         }
     }
 
-    public ProjectsAdapter.OnItemClickListener getOnItemClickListener() {
-        return mOnItemClickListener;
-    }
-
     public MutableLiveData<Boolean> getIsLoading() {
         return mIsLoading;
     }
-
-    public MutableLiveData<Boolean> getIsErrorVisible() {
-        return mIsErrorVisible;
-    }
-
+    public MutableLiveData<Boolean> getIsErrorVisible() { return mIsErrorVisible; }
     public LiveData<PagedList<RichProject>> getProjects() {
         return mProjects;
     }
-
-    public SwipeRefreshLayout.OnRefreshListener getOnRefreshListener() {
-        return mOnRefreshListener;
-    }
+    public SwipeRefreshLayout.OnRefreshListener getOnRefreshListener() { return mOnRefreshListener;}
+    public ProjectsAdapter.OnItemClickListener getOnItemClickListener() { return mOnItemClickListener; }
 }
