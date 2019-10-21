@@ -4,8 +4,6 @@ import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.v4.widget.SwipeRefreshLayout;
-
-import com.elegion.test.behancer.common.BaseViewModel;
 import com.elegion.test.behancer.data.Storage;
 import com.elegion.test.behancer.data.model.user.User;
 import com.elegion.test.behancer.utils.ApiUtils;
@@ -13,7 +11,11 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class ProfileViewModel extends BaseViewModel {
+public class ProfileViewModel extends ViewModel {
+
+    //здесь абстактные методы базовой вьюмодели не подходят для реализации т.к. другая сигнатура
+    //поэтому мы не наследуемся от него .строго говоря задание это и не требовало
+
     private String mUsername;
     private Storage mStorage;
     private Disposable mDisposable;
@@ -73,9 +75,10 @@ public class ProfileViewModel extends BaseViewModel {
         return mIsErrorVisible;
     }
     public SwipeRefreshLayout.OnRefreshListener getOnRefreshListener() { return mOnRefreshListener; }
+    public ProfileFragment.OnItemClickListener getOnItemClickListener() { return mOnItemClickListener; }
+
+
     public ObservableField<User> getProfile() {return mProfile; }
-    public ProfileFragment.OnItemClickListener getOnItemClickListener() { return mOnItemClickListener;
-    }
 
 
 

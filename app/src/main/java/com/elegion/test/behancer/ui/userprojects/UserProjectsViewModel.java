@@ -69,8 +69,10 @@ public class UserProjectsViewModel extends BaseViewModel {
 
     public MutableLiveData<Boolean> getIsLoading() { return mIsLoading; }
     public MutableLiveData<Boolean> getIsErrorVisible() { return mIsErrorVisible; }
-    public LiveData<PagedList<RichProject>> getUserProjects() { return mUserProjects; }
     public SwipeRefreshLayout.OnRefreshListener getOnRefreshListener() { return mOnRefreshListener;}
     public ProjectsAdapter.OnItemClickListener getOnItemClickListener() {return null;}
+
+
+    public LiveData<PagedList<RichProject>> getUserProjects() { return mUserProjects; }
 
 }
