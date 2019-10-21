@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.elegion.test.behancer.common.BaseFragment;
 import com.elegion.test.behancer.data.Storage;
 import com.elegion.test.behancer.databinding.ProjectsBinding;
 import com.elegion.test.behancer.ui.profile.ProfileActivity;
@@ -21,7 +22,7 @@ import com.elegion.test.behancer.utils.CustomFactory;
  * Created by Vladislav Falzan.
  */
 
-public class ProjectsFragment extends Fragment {
+public class ProjectsFragment extends BaseFragment {
 
     private ProjectsViewModel mProjectsViewModel;
     private ProjectsAdapter.OnItemClickListener mOnItemClickListener = username -> {
