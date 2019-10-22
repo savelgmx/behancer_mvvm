@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.paging.LivePagedListBuilder;
 import android.arch.paging.PagedList;
 
+import com.elegion.test.behancer.BuildConfig;
 import com.elegion.test.behancer.data.database.BehanceDao;
 import com.elegion.test.behancer.data.model.project.Owner;
 import com.elegion.test.behancer.data.model.project.Project;
@@ -40,6 +41,24 @@ public class Storage {
         List<Owner> owners = getOwners(projects);
 
         mBehanceDao.clearOwnerTable();
+        mBehanceDao.insertOwners(owners);
+    }
+
+    public void insertUserProjects(List<Project> projects) {
+
+        List<Project> mainprojects = mBehanceDao.getProjects(BuildConfig.API_QUERY);
+        for (int i = 0; i < projects.size(); i++) {
+            for (int j = 0; j < mainprojects.size(); j++) {
+                if(projects.get(i).getId() == mainprojects.get(j).getId()) {
+                    projects.get(i).setQuery(BuildConfig.API_QUERY);
+                    break;
+                }
+            }
+        }
+
+        mBehanceDao.insertProjects(projects);
+
+        List<Owner> owners = getOwners(projects);
         mBehanceDao.insertOwners(owners);
     }
 
@@ -95,6 +114,11 @@ public class Storage {
         response.setUser(user);
 
         return response;
+    }
+
+
+    public LiveData<PagedList<RichProject>> getUserProjectsPaged(String username) {
+        return new LivePagedListBuilder<>(mBehanceDao.getUserProjectsPaged(username), PAGE_SIZE).build();
     }
 
     public interface StorageOwner {

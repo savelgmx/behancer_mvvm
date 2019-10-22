@@ -33,7 +33,7 @@ public class UserProjectsViewModel extends BaseViewModel {
     public UserProjectsViewModel(Storage storage, String username) {
         mStorage = storage;
         mUsername =username;
-        mUserProjects = mStorage.getProjectsPaged();
+        mUserProjects = mStorage.getUserProjectsPaged(username);
         updateUserProjects();
 
     }
@@ -51,7 +51,7 @@ public class UserProjectsViewModel extends BaseViewModel {
                 .doOnSuccess(response -> mIsErrorVisible.postValue(false))
 
                 .subscribe(
-                        response -> mStorage.insertProjects(response),
+                        response -> mStorage.insertUserProjects(response),
                         throwable -> {
                             boolean value = mUserProjects.getValue() == null || mUserProjects.getValue().size() == 0;
                             mIsErrorVisible.postValue(value);

@@ -39,6 +39,10 @@ public class Project implements Serializable {
     @Ignore
     private List<Owner> mOwners;
 
+    @ColumnInfo(name = "query")
+    private String mQuery;
+
+
     public int getId() {
         return mId;
     }
@@ -78,4 +82,14 @@ public class Project implements Serializable {
     public void setOwners(@NonNull List<Owner> owners) {
         mOwners = owners;
     }
+
+
+    public String getQuery() {
+        return mQuery;
+    }
+
+    public void setQuery(String query) {
+        mQuery = query;
+    }
+
 }

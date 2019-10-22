@@ -40,11 +40,23 @@ public interface BehanceDao {
     @Query("select * from project")
     List<Project> getProjects();
 
+    @Query("select * from project where `query` = :query")
+    List<Project> getProjects(String query);
+
+
+    @Query("select project.* from project inner join owner on project.id = owner.project_id where username = :userName")
+    List<Project> getUserProjects(String userName);
+
+
     @Query("select * from project order by published_on desc")
     LiveData<List<RichProject>> getProjectsLive();
 
     @Query("select * from project order by published_on desc")
     DataSource.Factory<Integer, RichProject> getProjectsPaged();
+
+    @Query("select project.* from project inner join owner on project.id = owner.project_id where username = :userName order by published_on desc")
+    DataSource.Factory<Integer, RichProject> getUserProjectsPaged(String userName);
+
 
     @Query("select * from owner where project_id = :projectId")
     List<Owner> getOwnersFromProject(int projectId);
