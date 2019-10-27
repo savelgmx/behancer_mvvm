@@ -16,7 +16,7 @@ import com.elegion.test.behancer.data.Storage;
 По факту, это будет экран, похожий на ProjectsFragment, поэтому вам нужно по максимуму переиспользовать текущий код
 При нажатии на элементы списка UserProjectsFragment - ничего не должно происходить
 Выделите одинаковый код в базовый вьюмодель и подготовьте абстрактные методы для наследников
- - ProjectsFragment и UserProjectsFragment/ProjectsViewModel и UserProjectsViewModel
+ - ProjectsFragment и UserProjectsFragment/ProjectsViewModel и UserProjectsProjectsViewModel
 
  */
 public class ProjectsActivity extends SingleFragmentActivity implements Storage.StorageOwner {

@@ -10,7 +10,7 @@
 
         <variable
             name="vm"
-            type="com.elegion.test.behancer.ui.projects.ProjectsViewModel" />
+            type="com.elegion.test.behancer.common.BaseProjectsViewModel" />
 
     </data>
 
@@ -18,7 +18,7 @@
         android:id="@+id/refresher"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        bind:onRefresh="@{vm.onRefreshListener}"
+        bind:onRefresh="@{vm.getOnRefreshListener}"
         bind:refreshState="@{vm.isLoading}">
 
         <LinearLayout
